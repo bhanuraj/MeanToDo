@@ -1,0 +1,27 @@
+extends layout
+
+block head
+  link(rel='stylesheet', href='/javascripts/vendor/bootstrap-css/css/bootstrap.css')
+
+  script(type='text/javascript', src='/javascripts/controllers/AppController.js')
+
+block content
+  div.container(ng-controller="AppController", ng-init="setUsers( #{JSON.stringify(users)} )")
+    h1 My User List
+    h2 Add New
+    form(novalidate, ng-submit="addNewUser()")
+      textarea( ng-model="newUser.name",
+                placeholder="name")
+      br
+      textarea( ng-model="newUser.email",placeholder="email")
+      br
+      button.btn.btn-primary(type="submit") Add User
+    h2 Upcoming
+    div
+      div.row.user.not-done(ng-repeat="user in users")
+        div.span9
+          label{{user.name}}
+            
+        div.span3.text-right
+          i {{user.date | date:'MMM d, yyyy'}}
+   
